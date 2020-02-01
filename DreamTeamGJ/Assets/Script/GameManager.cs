@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,6 +17,10 @@ public class GameManager : MonoBehaviour
     public float nightTransition = 120f;
 
     public int currentDay = 0;
+
+    public UnityEvent eventInteract;
+    public UnityEvent eventDay;
+    public UnityEvent eventNight;
 
     public void PlayerTakesWeb()
     {
