@@ -21,7 +21,7 @@ public class TileManager : MonoBehaviour
         //Assign starting values (toile, durabilite, risque, etc)
         tileArray[1].state = 2;
         tileArray[2].state = 2;
-        tileArray[8].state = 2;
+        tileArray[13].state = 2;
     }
 
     private void GenerateTiles(GameObject[,] array)
@@ -32,7 +32,7 @@ public class TileManager : MonoBehaviour
         while (j < array.GetLength(1))
         {
             count++;
-            GameObject temp = Instantiate(tile.gameObject, new Vector3(tileSize * i, 0.5f, -tileSize * j), Quaternion.identity);
+            GameObject temp = Instantiate(tile.gameObject, new Vector3(tileSize * i, 0.5f, -tileSize * j), Quaternion.Euler(270f,0f,0f), this.transform);
             temp.GetComponent<Tile>().id = count;
             tileArray[count] = temp.GetComponent<Tile>();
 
