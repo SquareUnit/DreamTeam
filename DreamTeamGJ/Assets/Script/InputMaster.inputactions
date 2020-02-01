@@ -38,9 +38,17 @@
                     "interactions": ""
                 },
                 {
-                    "name": "InteractAction",
+                    "name": "QInteract",
                     "type": "Button",
                     "id": "ab522102-526c-4f3f-aabb-67228dbc9d11",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "EInteract",
+                    "type": "Button",
+                    "id": "3296c76e-5255-49b5-9964-26cad29c1a21",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
@@ -94,11 +102,22 @@
                 {
                     "name": "",
                     "id": "16b0c178-f53f-4bd8-9dcf-b74d730003ce",
-                    "path": "<Keyboard>/space",
-                    "interactions": "Press",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "InteractAction",
+                    "action": "QInteract",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ed671a3f-cc84-42ff-9252-0febcb7666bf",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EInteract",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

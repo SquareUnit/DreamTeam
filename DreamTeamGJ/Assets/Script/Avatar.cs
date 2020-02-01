@@ -8,16 +8,21 @@ public class Avatar : MonoBehaviour
     public InputMaster controls;
     private Transform tr;
 
+    private GameObject[] test;
+
     private float wKey;
     private float aKey;
     private float sKey;
     private float dKey;
+    private float qKey;
+    private float eKey;
 
-    private float speed = 0.01f;
+    //private float speed = 0.01f;
 
     private void Awake()
     {
         controls = new InputMaster();
+
         controls.AvatarActionMap.MoveUpwardAction.performed += ctx => wKey = ctx.ReadValue<float>();
         controls.AvatarActionMap.MoveUpwardAction.canceled += (ctx => wKey = 0.0f);
         controls.AvatarActionMap.MoveLeftAction.performed += (ctx => aKey = ctx.ReadValue<float>());
@@ -26,6 +31,11 @@ public class Avatar : MonoBehaviour
         controls.AvatarActionMap.MoveDownAction.canceled += (ctx => sKey = 0.0f);
         controls.AvatarActionMap.MoveRightAction.performed += (ctx => dKey = ctx.ReadValue<float>());
         controls.AvatarActionMap.MoveRightAction.canceled += (ctx => dKey = 0.0f);
+
+        controls.AvatarActionMap.QInteract.performed += (ctx => qKey = ctx.ReadValue<float>());
+        controls.AvatarActionMap.QInteract.canceled += (ctx => qKey = 0.0f);
+        controls.AvatarActionMap.EInteract.performed += (ctx => eKey = ctx.ReadValue<float>());
+        controls.AvatarActionMap.EInteract.canceled += (ctx => eKey = 0.0f);
     }
 
     private void Start()
@@ -39,7 +49,6 @@ public class Avatar : MonoBehaviour
         if (aKey == 1.0f) tr.position = tr.position + new Vector3(-0.1f, 0, 0);
         if (sKey == 1.0f) tr.position = tr.position + new Vector3(0, 0, -0.1f);
         if (dKey == 1.0f) tr.position = tr.position + new Vector3(0.1f, 0, 0);
-
     }
 
     private void OnEnable()
