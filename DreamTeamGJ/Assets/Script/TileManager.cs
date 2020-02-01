@@ -32,7 +32,7 @@ public class TileManager : MonoBehaviour
         while (j < array.GetLength(1))
         {
             count++;
-            GameObject temp = Instantiate(tile.gameObject, new Vector3(tileSize * i, 0.5f, -tileSize * j), Quaternion.identity);
+            GameObject temp = Instantiate(tile.gameObject, new Vector3(tileSize * i, 0.5f, -tileSize * j), Quaternion.Euler(270f,0f,0f), this.transform);
             temp.GetComponent<Tile>().id = count;
             tileArray[count] = temp.GetComponent<Tile>();
 
