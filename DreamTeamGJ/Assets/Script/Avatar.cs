@@ -18,7 +18,7 @@ public class Avatar : MonoBehaviour
     private void Awake()
     {
         controls = new InputMaster();
-        controls.AvatarActionMap.MoveUpwardAction.performed += (ctx => wKey = ctx.ReadValue<float>());
+        controls.AvatarActionMap.MoveUpwardAction.performed += ctx => wKey = ctx.ReadValue<float>();
         controls.AvatarActionMap.MoveUpwardAction.canceled += (ctx => wKey = 0.0f);
         controls.AvatarActionMap.MoveLeftAction.performed += (ctx => aKey = ctx.ReadValue<float>());
         controls.AvatarActionMap.MoveLeftAction.canceled += (ctx => aKey = 0.0f);
@@ -33,18 +33,13 @@ public class Avatar : MonoBehaviour
         tr = transform;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (wKey == 1.0f) tr.position = tr.position + new Vector3(0, 0, 0.1f);
         if (aKey == 1.0f) tr.position = tr.position + new Vector3(-0.1f, 0, 0);
         if (sKey == 1.0f) tr.position = tr.position + new Vector3(0, 0, -0.1f);
         if (dKey == 1.0f) tr.position = tr.position + new Vector3(0.1f, 0, 0);
 
-    }
-
-    private void Test()
-    {
-        Debug.Log("weeee");
     }
 
     private void OnEnable()
