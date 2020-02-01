@@ -1,0 +1,109 @@
+{
+    "name": "InputMaster",
+    "maps": [
+        {
+            "name": "AvatarActionMap",
+            "id": "d5fa353c-6ec2-4452-9699-303fab5c79f2",
+            "actions": [
+                {
+                    "name": "MoveUpwardAction",
+                    "type": "Button",
+                    "id": "1aaf91a6-9100-43a3-8480-15783358c438",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "MoveLeftAction",
+                    "type": "Button",
+                    "id": "a43a8489-43a6-48bc-ac99-d35d1343bcb7",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "MoveDownAction",
+                    "type": "Button",
+                    "id": "1e741df6-953c-43ce-b28f-6f7c2731f071",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "MoveRightAction",
+                    "type": "Button",
+                    "id": "c41c0a8b-a653-4012-8b84-80547ce745c5",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "InteractAction",
+                    "type": "Button",
+                    "id": "ab522102-526c-4f3f-aabb-67228dbc9d11",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "d5126ad7-196f-4bfb-a3f7-f1cbc4b24f91",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveUpwardAction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "59231108-110e-4852-95e7-bf9d0b3be5c1",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveLeftAction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6c38a5f0-867b-4280-9ab7-32a8e0127271",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveDownAction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "883aecf6-842f-471d-a1a7-f0e03aa81743",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveRightAction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "16b0c178-f53f-4bd8-9dcf-b74d730003ce",
+                    "path": "<Keyboard>/space",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InteractAction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
