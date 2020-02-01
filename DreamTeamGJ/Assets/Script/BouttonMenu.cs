@@ -40,7 +40,7 @@ public class BouttonMenu : MonoBehaviour
     public void PressExit()
     {
         Application.Quit();
-        Debug.Log("Appel de la fonction PressExit");
+        Debug.Log("Press exit called");
     }
 
 }
