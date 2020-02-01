@@ -21,7 +21,7 @@ public class TileManager : MonoBehaviour
         //Assign starting values (toile, durabilite, risque, etc)
         tileArray[1].state = 2;
         tileArray[2].state = 2;
-        tileArray[8].state = 2;
+        tileArray[13].state = 2;
     }
 
     private void GenerateTiles(GameObject[,] array)
