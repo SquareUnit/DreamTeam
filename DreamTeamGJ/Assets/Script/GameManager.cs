@@ -27,9 +27,12 @@ public class GameManager : MonoBehaviour
 
     public GameObject FlyPrefab;
 
+    public AudioSource audioSource;
+
     public void Start()
     {
         instance = this;
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void SpawnFlies()
@@ -87,6 +90,7 @@ public class GameManager : MonoBehaviour
         {
             //transition to night here
 
+            audioSource.Play();
             currentDay += 1;
             dayTime = false;
             currentTime = 0f;
@@ -94,7 +98,9 @@ public class GameManager : MonoBehaviour
         }
         if (currentTime >= dayTransition && dayTime == false)
         {
-            //transition to day here
+            //transition to day here\
+
+            audioSource.Play();
             dayTime = true;
             currentTime = 0f;
         }
