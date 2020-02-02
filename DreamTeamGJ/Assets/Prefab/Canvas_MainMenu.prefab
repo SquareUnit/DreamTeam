@@ -142,7 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5447d80954e64d6419d8356874e6d1bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMainMenu: {fileID: 6871582679335329020}
+  myMainMenu: {fileID: 7650843640761300774}
 --- !u!1 &2189713462546290815
 GameObject:
   m_ObjectHideFlags: 0
@@ -440,7 +440,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5447d80954e64d6419d8356874e6d1bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMainMenu: {fileID: 6871582679335329020}
+  myMainMenu: {fileID: 7650843640761300774}
 --- !u!1 &6871582679335329020
 GameObject:
   m_ObjectHideFlags: 0
@@ -453,6 +453,7 @@ GameObject:
   - component: {fileID: 351923263219369315}
   - component: {fileID: 1726352157651348745}
   - component: {fileID: 5850026904098943946}
+  - component: {fileID: 2540122945877086283}
   m_Layer: 5
   m_Name: Canvas_MainMenu
   m_TagString: Canvas
@@ -540,6 +541,19 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &2540122945877086283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6871582679335329020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5447d80954e64d6419d8356874e6d1bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myMainMenu: {fileID: 7650843640761300774}
 --- !u!1 &7650843640761300774
 GameObject:
   m_ObjectHideFlags: 0
@@ -600,14 +614,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
-  m_RaycastTarget: 1
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
+  m_Sprite: {fileID: 21300000, guid: 7fb6eeeae440d1d44b65c017f5565fda, type: 3}
+  m_Type: 2
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
