@@ -1,22 +1,22 @@
 fileFormatVersion: 2
-guid: ed535eb6388b43044837fc3aa1997c0b
+guid: c3064a5a0d315f04cadbf4f9881fc003
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7688233275402136219
-    second: Spider_Interact_01_0
+      213: -8012190604726028690
+    second: Spider_Idle_02_0
   - first:
-      213: -7168475809889770511
-    second: Spider_Interact_01_1
+      213: 5381876197452525907
+    second: Spider_Idle_02_1
   - first:
-      213: -1486902209459221917
-    second: Spider_Interact_01_2
+      213: -6144720498171543458
+    second: Spider_Idle_02_2
   - first:
-      213: -3307678149701202228
-    second: Spider_Interact_01_3
+      213: 2353373069912864800
+    second: Spider_Idle_02_3
   - first:
-      213: 8337205548704670725
-    second: Spider_Interact_01_4
+      213: 823405405387108071
+    second: Spider_Idle_02_4
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -75,7 +75,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 256
+    maxTextureSize: 512
     resizeAlgorithm: 1
     textureFormat: -1
     textureCompression: 0
@@ -87,7 +87,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
-    maxTextureSize: 256
+    maxTextureSize: 512
     resizeAlgorithm: 1
     textureFormat: -1
     textureCompression: 0
@@ -99,7 +99,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: WebGL
-    maxTextureSize: 256
+    maxTextureSize: 512
     resizeAlgorithm: 1
     textureFormat: -1
     textureCompression: 0
@@ -113,7 +113,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Spider_Interact_01_0
+      name: Spider_Idle_02_0
       rect:
         serializedVersion: 2
         x: 0
@@ -127,14 +127,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7cc11e547efe4a141a2a9f944cc22921
-      internalID: -7688233275402136219
+      spriteID: e335fd93874b62040a453feb747a6771
+      internalID: -8012190604726028690
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Spider_Interact_01_1
+      name: Spider_Idle_02_1
       rect:
         serializedVersion: 2
         x: 64
@@ -148,14 +148,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e30109f89ee890548aa427fee84d1095
-      internalID: -7168475809889770511
+      spriteID: f7a5a34e11fa4de4f9604f6b6daafd62
+      internalID: 5381876197452525907
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Spider_Interact_01_2
+      name: Spider_Idle_02_2
       rect:
         serializedVersion: 2
         x: 0
@@ -169,14 +169,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9a2084f6555690c4080c41bb913c4a6d
-      internalID: -1486902209459221917
+      spriteID: 1431712c27137ba43a6f19b73ef4bbc7
+      internalID: -6144720498171543458
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Spider_Interact_01_3
+      name: Spider_Idle_02_3
       rect:
         serializedVersion: 2
         x: 64
@@ -190,14 +190,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 59a1fff0b7061ed419b588ffe8cef14d
-      internalID: -3307678149701202228
+      spriteID: 94d4f81683560204a880d74bf9aad733
+      internalID: 2353373069912864800
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Spider_Interact_01_4
+      name: Spider_Idle_02_4
       rect:
         serializedVersion: 2
         x: 0
@@ -211,8 +211,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 456d8154b386a564f9ecc68d85fec0fa
-      internalID: 8337205548704670725
+      spriteID: 6082eb82ea90102429d19ddb3a7fde99
+      internalID: 823405405387108071
       vertices: []
       indices: 
       edges: []
@@ -220,7 +220,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 62bbb9fc2e3849a49baecc25d44f530a
+    spriteID: 64fd4c635254d58409b6c0c1f468484d
     internalID: 0
     vertices: []
     indices: 

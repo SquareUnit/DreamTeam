@@ -1,22 +1,13 @@
 fileFormatVersion: 2
-guid: ed535eb6388b43044837fc3aa1997c0b
+guid: f58b73b8c5754684192387a51608933c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7688233275402136219
-    second: Spider_Interact_01_0
+      213: 4863628921637157538
+    second: button_2_sprite_0
   - first:
-      213: -7168475809889770511
-    second: Spider_Interact_01_1
-  - first:
-      213: -1486902209459221917
-    second: Spider_Interact_01_2
-  - first:
-      213: -3307678149701202228
-    second: Spider_Interact_01_3
-  - first:
-      213: 8337205548704670725
-    second: Spider_Interact_01_4
+      213: -24719807099437559
+    second: button_2_sprite_1
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -75,7 +66,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 256
+    maxTextureSize: 128
     resizeAlgorithm: 1
     textureFormat: -1
     textureCompression: 0
@@ -87,7 +78,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
-    maxTextureSize: 256
+    maxTextureSize: 128
     resizeAlgorithm: 1
     textureFormat: -1
     textureCompression: 0
@@ -99,7 +90,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: WebGL
-    maxTextureSize: 256
+    maxTextureSize: 128
     resizeAlgorithm: 1
     textureFormat: -1
     textureCompression: 0
@@ -113,91 +104,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Spider_Interact_01_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 128
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7cc11e547efe4a141a2a9f944cc22921
-      internalID: -7688233275402136219
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Spider_Interact_01_1
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 128
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e30109f89ee890548aa427fee84d1095
-      internalID: -7168475809889770511
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Spider_Interact_01_2
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 64
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9a2084f6555690c4080c41bb913c4a6d
-      internalID: -1486902209459221917
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Spider_Interact_01_3
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 64
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 59a1fff0b7061ed419b588ffe8cef14d
-      internalID: -3307678149701202228
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Spider_Interact_01_4
+      name: button_2_sprite_0
       rect:
         serializedVersion: 2
         x: 0
@@ -211,8 +118,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 456d8154b386a564f9ecc68d85fec0fa
-      internalID: 8337205548704670725
+      spriteID: 71b563d8333abb5489ad61e2b96c8a30
+      internalID: 4863628921637157538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: button_2_sprite_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e38b073bf387c743b6c70693c123351
+      internalID: -24719807099437559
       vertices: []
       indices: 
       edges: []
@@ -220,7 +148,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 62bbb9fc2e3849a49baecc25d44f530a
+    spriteID: a1938cff76ba5c64385108d49cf3f0a8
     internalID: 0
     vertices: []
     indices: 
