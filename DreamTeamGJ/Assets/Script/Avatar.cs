@@ -191,19 +191,26 @@ public class Avatar : MonoBehaviour
     //interaction fonction
     public void Build()
     {
-        TileManager.instance.tileArray[tileToInteract].state = 2;
-        GameManager.instance.webCount -= 2;
-        GameManager.instance.eventInteract.Invoke();
+        // pop le ui de selection
+        if (GameManager.instance.webCount >= 2)
+        {
+            GameManager.instance.webCount -= 2;
+            TileManager.instance.tileArray[tileToInteract].state = 2;
+            GameManager.instance.eventInteract.Invoke(); // update le visuel
+        }
     }
 
     public void Repair()
     {
-        TileManager.instance.tileArray[tileToInteract].state = 2;
-        GameManager.instance.webCount -= 1;
-        GameManager.instance.eventInteract.Invoke();
+        if (GameManager.instance.webCount >= 1)
+        {
+            GameManager.instance.webCount -= 1;
+            TileManager.instance.tileArray[tileToInteract].state = 2;
+            GameManager.instance.eventInteract.Invoke();
+        }
     }
 
-    public void Eat()
+    public void Eat() // Destroy ?
     {
         if (TileManager.instance.tileArray[tileToInteract].state == 2)
         {
