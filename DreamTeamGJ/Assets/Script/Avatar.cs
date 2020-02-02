@@ -20,9 +20,8 @@ public class Avatar : MonoBehaviour
     //for interaction
 
     RaycastHit hit;
-    public Vector3 playerLocation;
     public int playerCurrentPosition;
-    private int tileToInterect;
+    private int tileToInteract;
     private bool eReleased = true;
     private int timePressed;
 
@@ -53,8 +52,6 @@ public class Avatar : MonoBehaviour
     private void Start()
     {
         tr = transform;
-
-        playerLocation = this.transform.position;
     } 
 
     private void EscapeKey()
@@ -87,32 +84,31 @@ public class Avatar : MonoBehaviour
     private void Update()
     {
         // raycast for tile bellow character
-
-        if (Physics.Raycast(playerLocation, Vector3.down, out hit))
+        Debug.DrawRay(tr.position, Vector3.down);
+        if (Physics.Raycast(tr.position, Vector3.down, out hit, 1f))
         {
-            if (playerCurrentPosition != hit.collider.GetComponent<Tile>().id)
-            {
-                playerCurrentPosition = hit.collider.GetComponent<Tile>().id;
-            }
+            Debug.Log(hit);
+            playerCurrentPosition = hit.collider.GetComponent<Tile>().id;
         }
+  
         
         //tiles next to the character tile
         
         if (aKey == 1.0f)
         {
-            tileToInterect = playerCurrentPosition - 1;
+            tileToInteract = playerCurrentPosition - 1;
         }
         if (dKey == 1.0f)
         {
-            tileToInterect = playerCurrentPosition + 1;
+            tileToInteract = playerCurrentPosition + 1;
         }
         if (wKey == 1.0f)
         {
-            tileToInterect = playerCurrentPosition - 12;
+            tileToInteract = playerCurrentPosition - 12;
         }
         if (sKey == 1.0f)
         {
-            tileToInterect = playerCurrentPosition + 12;
+            tileToInteract = playerCurrentPosition + 12;
         }
 
         //to see how many time the player release the E buttom
@@ -129,18 +125,18 @@ public class Avatar : MonoBehaviour
 
         //to call the different fonction of interact 
 
-        if (TileManager.instance.tileArray[tileToInterect].state == 2 && timePressed == 2)
+        if (TileManager.instance.tileArray[tileToInteract].state == 2 && timePressed == 2)
         {
             Eat();
             timePressed = 0;
         }
-        if (TileManager.instance.tileArray[tileToInterect].state == 1 && timePressed == 2)
+        if (TileManager.instance.tileArray[tileToInteract].state == 1 && timePressed == 2)
         {
             Repair();
             Eat();
             timePressed = 0;
         }
-        if (TileManager.instance.tileArray[tileToInterect].state == 0 && timePressed == 2)
+        if (TileManager.instance.tileArray[tileToInteract].state == 0 && timePressed == 2)
         {
             Build();
             timePressed = 0;
@@ -152,19 +148,19 @@ public class Avatar : MonoBehaviour
 
     public void Build()
     {
-        TileManager.instance.tileArray[tileToInterect].state = 2;
+        TileManager.instance.tileArray[tileToInteract].state = 2;
         GameManager.instance.webCount -= 2;
     }
 
     public void Repair()
     {
-        TileManager.instance.tileArray[tileToInterect].state = 2;
+        TileManager.instance.tileArray[tileToInteract].state = 2;
         GameManager.instance.webCount -= 1;
     }
 
     public void Eat()
     {
-        if (TileManager.instance.tileArray[tileToInterect].state == 2)
+        if (TileManager.instance.tileArray[tileToInteract].state == 2)
         {
             GameManager.instance.webCount += 2;
         }
@@ -173,7 +169,7 @@ public class Avatar : MonoBehaviour
             GameManager.instance.webCount += 1;
 
         }
-        TileManager.instance.tileArray[tileToInterect].state = 0;
+        TileManager.instance.tileArray[tileToInteract].state = 0;
 
     }
 
