@@ -25,6 +25,10 @@ public class GameManager : MonoBehaviour
     public TileManager tileMan;
     private List<int> validTile = new List<int>();
 
+    public void Start()
+    {
+        instance = this;
+    }
 
     public void SpawnFlies()
     {
@@ -78,7 +82,6 @@ public class GameManager : MonoBehaviour
     public void Update()
     {
         currentTime += Time.deltaTime;
-
 
         if(currentTime >= nightTransition && dayTime == true)
         {
