@@ -24,9 +24,7 @@ public class Avatar : MonoBehaviour
     RaycastHit hit;
     public int playerCurrentPosition;
     public int tileToInteract;
-    private bool eReleased = true;
-    private int timePressed;
-    private bool outOfWeb;
+    public bool canInteract;
 
     //private float speed = 0.01f;
 
@@ -43,16 +41,11 @@ public class Avatar : MonoBehaviour
         controls.AvatarActionMap.MoveRightAction.performed += ValidateInput;
         controls.AvatarActionMap.MoveRightAction.canceled += (ctx => wasd[3] = 0.0f);
 
-        controls.AvatarActionMap.QInteract.performed += (ctx => qKey = ctx.ReadValue<float>());
-        controls.AvatarActionMap.QInteract.canceled += (ctx => qKey = 0.0f);
-        controls.AvatarActionMap.EInteract.performed += (ctx => eKey = ctx.ReadValue<float>());
-        controls.AvatarActionMap.EInteract.canceled += (ctx => eKey = 0.0f);
+        controls.AvatarActionMap.InteractChoiceAction.performed += InteractMenu;
+        controls.AvatarActionMap.QInteractAction.performed += QInteract;
+        controls.AvatarActionMap.EInteractAction.performed += EInteract;
 
-        //controls.AvatarActionMap.PlaceRopeAction.performed += (ctx => SpawnRope());
-        //controls.AvatarActionMap.GrowRopeAction.performed += (ctx => ctx.ReadValue<float>());
-        //controls.AvatarActionMap.GrowRopeAction.canceled += (ctx => eKey = 0.0f);
-        //controls.AvatarActionMap.ShrinkRopeAction.performed += (ctx => ctx.ReadValue<float>());
-        //controls.AvatarActionMap.ShrinkRopeAction.canceled += (ctx => eKey = 0.0f);
+
 
         controls.AvatarActionMap.EscapeAction.performed += ctx => EscapeKey();
     }
@@ -156,34 +149,47 @@ public class Avatar : MonoBehaviour
                 tileToInteract = (playerCurrentPosition % 12 == 0) ? 0 : playerCurrentPosition + 1;
                 break;
         }
+    }
 
-        //to see how many time the player release the E buttom
-        if (eKey == 1.0f)
+    private void InteractMenu(InputAction.CallbackContext ctx)
+    {
+        if(!canInteract && tileToInteract != 0)
         {
-            eReleased = false;
+            // Open Menu visual
+            Debug.Log("Menu open");
+            canInteract = true;
         }
-        if (eReleased == false && eKey == 0f)
+        else if(canInteract)
         {
-            eReleased = true;
-            timePressed += 1;
+            //close visual
+            Debug.Log("Menu closed");
+            canInteract = false;
         }
+    }
 
-        //to call the different fonction of interact 
-        if (tileToInteract != 0 && TileManager.instance.tileArray[tileToInteract].state == 2 && timePressed == 2)
+    private void EInteract(InputAction.CallbackContext ctx)
+    {
+        Debug.Log("Eat action failed");
+        if (canInteract && TileManager.instance.tileArray[tileToInteract].state == 2)
         {
+            Debug.Log("Eat action succes");
             Eat();
-            timePressed = 0;
         }
-        if (tileToInteract != 0 && TileManager.instance.tileArray[tileToInteract].state == 1 && timePressed == 2)
+    }
+
+    private void QInteract(InputAction.CallbackContext ctx)
+    {
+        Debug.Log("Build/Repair action failed");
+        if (canInteract && TileManager.instance.tileArray[tileToInteract].state == 0)
         {
+            Debug.Log("Build action succes");
+            Build();
+        }
+        else if(canInteract && TileManager.instance.tileArray[tileToInteract].state == 1)
+        {
+            Debug.Log("Repair action succes");
             Repair();
             Eat();
-            timePressed = 0;
-        }
-        if (tileToInteract != 0 && TileManager.instance.tileArray[tileToInteract].state == 0 && timePressed == 2)
-        {
-            Build();
-            timePressed = 0;
         }
     }
 
@@ -209,7 +215,7 @@ public class Avatar : MonoBehaviour
         }
     }
 
-    public void Eat() // Destroy ?
+    public void Eat()
     {
         if (TileManager.instance.tileArray[tileToInteract].state == 2)
         {
