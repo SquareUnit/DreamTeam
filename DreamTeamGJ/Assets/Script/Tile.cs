@@ -18,7 +18,7 @@ public class Tile : MonoBehaviour
     {
         renderer = GetComponent<SpriteRenderer>();
         collider = GetComponent<Collider>();
-        collider.enabled = state == 0;
+        UpdateInteract();
         UpdateSprite();
 
         GameManager.instance.eventInteract.AddListener(UpdateInteract);
@@ -46,7 +46,7 @@ public class Tile : MonoBehaviour
 
     public void UpdateInteract()
     {
-        collider.enabled = state == 0;
+        collider.isTrigger = state != 0;
         UpdateSprite();
     }
 
