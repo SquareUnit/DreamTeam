@@ -25,9 +25,14 @@ public class GameManager : MonoBehaviour
     public TileManager tileMan;
     private List<int> validTile = new List<int>();
 
+    public GameObject FlyPrefab;
+
+    public AudioSource audioSource;
+
     public void Start()
     {
         instance = this;
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void SpawnFlies()
@@ -36,11 +41,9 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
             int temp = Random.Range(0, validTile.Count);
-            //Spawn flies at 
-            //tileMan.tileArray[validTile[temp]];
+            Instantiate(FlyPrefab, tileMan.tileArray[validTile[temp]].transform);
             validTile.Remove(validTile[temp]);
-        }
-        
+        }  
     }
 
     public void CheckValidTile()
@@ -87,6 +90,7 @@ public class GameManager : MonoBehaviour
         {
             //transition to night here
 
+            audioSource.Play();
             currentDay += 1;
             dayTime = false;
             currentTime = 0f;
@@ -94,7 +98,9 @@ public class GameManager : MonoBehaviour
         }
         if (currentTime >= dayTransition && dayTime == false)
         {
-            //transition to day here
+            //transition to day here\
+
+            audioSource.Play();
             dayTime = true;
             currentTime = 0f;
         }

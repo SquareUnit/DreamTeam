@@ -10,12 +10,16 @@ public class Avatar : MonoBehaviour
     public Animator animator;
     public GameObject ropePrefab;
 
+    public AudioClip audioWalk;
+    public AudioClip audioBuild;
+    public AudioClip audioDestroy;
+    public AudioSource audioSource;
+    public AudioSource audioSourceWalk;
+
     private GameObject[] test;
 
-    private float wKey;
-    private float aKey;
-    private float sKey;
-    private float dKey;
+    private float[] wasd = new float[4];
+    private string lastKeyPressed;
     private float qKey;
     private float eKey;
     private float plusKey;
@@ -28,6 +32,7 @@ public class Avatar : MonoBehaviour
     public int tileToInteract;
     private bool eReleased = true;
     private int timePressed;
+    private bool outOfWeb;
 
     //private float speed = 0.01f;
 
@@ -35,21 +40,21 @@ public class Avatar : MonoBehaviour
     {
         controls = new InputMaster();
 
-        controls.AvatarActionMap.MoveUpwardAction.performed += ctx => wKey = ctx.ReadValue<float>();
-        controls.AvatarActionMap.MoveUpwardAction.canceled += (ctx => wKey = 0.0f);
-        controls.AvatarActionMap.MoveLeftAction.performed += (ctx => aKey = ctx.ReadValue<float>());
-        controls.AvatarActionMap.MoveLeftAction.canceled += (ctx => aKey = 0.0f);
-        controls.AvatarActionMap.MoveDownAction.performed += (ctx => sKey = ctx.ReadValue<float>());
-        controls.AvatarActionMap.MoveDownAction.canceled += (ctx => sKey = 0.0f);
-        controls.AvatarActionMap.MoveRightAction.performed += (ctx => dKey = ctx.ReadValue<float>());
-        controls.AvatarActionMap.MoveRightAction.canceled += (ctx => dKey = 0.0f);
+        controls.AvatarActionMap.MoveUpwardAction.performed += ValidateInput;
+        controls.AvatarActionMap.MoveUpwardAction.canceled += (ctx => wasd[0] = 0.0f);
+        controls.AvatarActionMap.MoveLeftAction.performed += ValidateInput;
+        controls.AvatarActionMap.MoveLeftAction.canceled += (ctx => wasd[1] = 0.0f);
+        controls.AvatarActionMap.MoveDownAction.performed += ValidateInput;
+        controls.AvatarActionMap.MoveDownAction.canceled += (ctx => wasd[2] = 0.0f);
+        controls.AvatarActionMap.MoveRightAction.performed += ValidateInput;
+        controls.AvatarActionMap.MoveRightAction.canceled += (ctx => wasd[3] = 0.0f);
 
         controls.AvatarActionMap.QInteract.performed += (ctx => qKey = ctx.ReadValue<float>());
         controls.AvatarActionMap.QInteract.canceled += (ctx => qKey = 0.0f);
         controls.AvatarActionMap.EInteract.performed += (ctx => eKey = ctx.ReadValue<float>());
         controls.AvatarActionMap.EInteract.canceled += (ctx => eKey = 0.0f);
 
-        controls.AvatarActionMap.PlaceRopeAction.performed += (ctx => SpawnRope());
+        //controls.AvatarActionMap.PlaceRopeAction.performed += (ctx => SpawnRope());
         //controls.AvatarActionMap.GrowRopeAction.performed += (ctx => ctx.ReadValue<float>());
         //controls.AvatarActionMap.GrowRopeAction.canceled += (ctx => eKey = 0.0f);
         //controls.AvatarActionMap.ShrinkRopeAction.performed += (ctx => ctx.ReadValue<float>());
@@ -63,82 +68,106 @@ public class Avatar : MonoBehaviour
         tr = transform;
         tileToInteract = 0;
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     } 
-
-    private void SpawnRope()
-    {
-        Debug.Log("Rope spawned");
-        GameObject rope = Instantiate(ropePrefab, tr.position, Quaternion.identity);
-    }
 
     private void EscapeKey()
     {
 
     }
 
+    // Make sure only one of the wasd key can be pressed at the same time. Disallow diagonal.
+    // Recieve the input context, check if any wasd input are currently being pressed. If not, allow key press.
+    private void ValidateInput(InputAction.CallbackContext ctx)
+    {
+        int totalKeysPressed = 0;
+        for(int i = 0; i < wasd.Length; i++)
+        {
+            if(wasd[i] == 1) totalKeysPressed++;
+        }
+        if(totalKeysPressed == 0)
+        {
+            if(ctx.action == controls.AvatarActionMap.MoveUpwardAction)
+            {
+                wasd[0] = 1;
+                lastKeyPressed = "W";
+            }
+            if (ctx.action == controls.AvatarActionMap.MoveLeftAction)
+            {
+                wasd[1] = 1;
+                lastKeyPressed = "A";
+            }
+            if (ctx.action == controls.AvatarActionMap.MoveDownAction)
+            {
+                wasd[2] = 1;
+                lastKeyPressed = "S";
+            }
+            if (ctx.action == controls.AvatarActionMap.MoveRightAction)
+            {
+                wasd[3] = 1;
+                lastKeyPressed = "D";
+            }
+        }
+    }
+
+    // Manage animation and movement
     private void FixedUpdate()
     {
         animator.SetBool("isMoving", false);
-        if (wKey == 1.0f)
+        if (wasd[0] == 1.0f)
         {
             tr.position = tr.position + new Vector3(0, 0, 0.1f);
             animator.SetBool("isMoving", true);
+            audioSourceWalk.Play();
         }
-        if (aKey == 1.0f)
+        if (wasd[1] == 1.0f)
         {
             tr.position = tr.position + new Vector3(-0.1f, 0, 0);
             animator.SetBool("isMoving", true);
+            audioSourceWalk.Play();
         }
-        if (sKey == 1.0f)
+        if (wasd[2] == 1.0f)
         {
             tr.position = tr.position + new Vector3(0, 0, -0.1f);
             animator.SetBool("isMoving", true);
+            audioSourceWalk.Play();
         }
-        if (dKey == 1.0f)
+        if (wasd[3] == 1.0f)
         {
             tr.position = tr.position + new Vector3(0.1f, 0, 0);
             animator.SetBool("isMoving", true);
+            audioSourceWalk.Play();
         }
-    }
-
-    private void OnEnable()
-    {
-        controls.AvatarActionMap.Enable();
-    }
-
-    private void OnDisable()
-    {
-        controls.AvatarActionMap.Disable();
     }
 
     private void Update()
     {
-        // raycast for tile bellow character
+        // Find player current position with a raycast down
         if (Physics.Raycast(tr.position, Vector3.down, out hit, 1f))
         {
             playerCurrentPosition = hit.collider.GetComponent<Tile>().id;
         }
-  
-        //tiles next to the character tile
-        if (aKey == 1.0f)
+
+        // Find tileToInteract based on last key pressed.
+        switch (lastKeyPressed)
         {
-            tileToInteract = playerCurrentPosition - 1;
-        }
-        if (dKey == 1.0f)
-        {
-            tileToInteract = playerCurrentPosition + 1;
-        }
-        if (wKey == 1.0f)
-        {
-            tileToInteract = playerCurrentPosition - 12;
-        }
-        if (sKey == 1.0f)
-        {
-            tileToInteract = playerCurrentPosition + 12;
+            case "W":
+                tileToInteract = (playerCurrentPosition - 12 < 0)? 0: playerCurrentPosition - 12;
+                break;
+
+            case "A":
+                tileToInteract = (playerCurrentPosition % 12 == 1)? 0: playerCurrentPosition - 1; 
+                break;
+
+            case "S":
+                tileToInteract = (playerCurrentPosition + 12 > 84) ? 0 : playerCurrentPosition + 12;
+                break;
+
+            case "D":
+                tileToInteract = (playerCurrentPosition % 12 == 0) ? 0 : playerCurrentPosition + 1;
+                break;
         }
 
-        if (tileToInteract < 0 || tileToInteract > 84)
-            tileToInteract = 0;
         //to see how many time the player release the E buttom
         if (eKey == 1.0f)
         {
@@ -151,7 +180,6 @@ public class Avatar : MonoBehaviour
         }
 
         //to call the different fonction of interact 
-
         if (tileToInteract != 0 && TileManager.instance.tileArray[tileToInteract].state == 2 && timePressed == 2)
         {
             Eat();
@@ -173,19 +201,30 @@ public class Avatar : MonoBehaviour
     //interaction fonction
     public void Build()
     {
-        TileManager.instance.tileArray[tileToInteract].state = 2;
-        GameManager.instance.webCount -= 2;
-        GameManager.instance.eventInteract.Invoke();
+        // pop le ui de selection
+        if (GameManager.instance.webCount >= 2)
+        {
+            GameManager.instance.webCount -= 2;
+            TileManager.instance.tileArray[tileToInteract].state = 2;
+            GameManager.instance.eventInteract.Invoke(); // update le visuel
+            audioSource.clip = audioBuild;
+            audioSource.Play();
+        }
     }
 
     public void Repair()
     {
-        TileManager.instance.tileArray[tileToInteract].state = 2;
-        GameManager.instance.webCount -= 1;
-        GameManager.instance.eventInteract.Invoke();
+        if (GameManager.instance.webCount >= 1)
+        {
+            GameManager.instance.webCount -= 1;
+            TileManager.instance.tileArray[tileToInteract].state = 2;
+            GameManager.instance.eventInteract.Invoke();
+            audioSource.clip = audioBuild;
+            audioSource.Play();
+        }
     }
 
-    public void Eat()
+    public void Eat() // Destroy ?
     {
         if (TileManager.instance.tileArray[tileToInteract].state == 2)
         {
@@ -199,5 +238,26 @@ public class Avatar : MonoBehaviour
         TileManager.instance.tileArray[tileToInteract].state = 0;
 
         GameManager.instance.eventInteract.Invoke();
+        audioSource.clip = audioDestroy;
+        audioSource.Play();
     }
+
+    private void OnEnable()
+    {
+        controls.AvatarActionMap.Enable();
+    }
+
+    private void OnDisable()
+    {
+        controls.AvatarActionMap.Disable();
+    }
+
+    //ROPE NOT INTEGRATED
+    /*
+    private void SpawnRope()
+    {
+        Debug.Log("Rope spawned");
+        GameObject rope = Instantiate(ropePrefab, tr.position, Quaternion.identity);
+    }
+    */
 }
