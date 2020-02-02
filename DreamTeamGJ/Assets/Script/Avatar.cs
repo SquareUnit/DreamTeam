@@ -7,6 +7,7 @@ public class Avatar : MonoBehaviour
 {
     public InputMaster controls;
     private Transform tr;
+    public Animator animator;
 
     private GameObject[] test;
 
@@ -53,6 +54,7 @@ public class Avatar : MonoBehaviour
     {
         tr = transform;
         tileToInteract = 0;
+        animator = GetComponent<Animator>();
     } 
 
     private void EscapeKey()
@@ -62,10 +64,27 @@ public class Avatar : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (wKey == 1.0f) tr.position = tr.position + new Vector3(0, 0, 0.1f);
-        if (aKey == 1.0f) tr.position = tr.position + new Vector3(-0.1f, 0, 0);
-        if (sKey == 1.0f) tr.position = tr.position + new Vector3(0, 0, -0.1f);
-        if (dKey == 1.0f) tr.position = tr.position + new Vector3(0.1f, 0, 0);
+        animator.SetBool("isMoving", false);
+        if (wKey == 1.0f)
+        {
+            tr.position = tr.position + new Vector3(0, 0, 0.1f);
+            animator.SetBool("isMoving", true);
+        }
+        if (aKey == 1.0f)
+        {
+            tr.position = tr.position + new Vector3(-0.1f, 0, 0);
+            animator.SetBool("isMoving", true);
+        }
+        if (sKey == 1.0f)
+        {
+            tr.position = tr.position + new Vector3(0, 0, -0.1f);
+            animator.SetBool("isMoving", true);
+        }
+        if (dKey == 1.0f)
+        {
+            tr.position = tr.position + new Vector3(0.1f, 0, 0);
+            animator.SetBool("isMoving", true);
+        }
     }
 
     private void OnEnable()
@@ -147,12 +166,14 @@ public class Avatar : MonoBehaviour
     {
         TileManager.instance.tileArray[tileToInteract].state = 2;
         GameManager.instance.webCount -= 2;
+        GameManager.instance.eventInteract.Invoke();
     }
 
     public void Repair()
     {
         TileManager.instance.tileArray[tileToInteract].state = 2;
         GameManager.instance.webCount -= 1;
+        GameManager.instance.eventInteract.Invoke();
     }
 
     public void Eat()
@@ -168,6 +189,7 @@ public class Avatar : MonoBehaviour
         }
         TileManager.instance.tileArray[tileToInteract].state = 0;
 
+        GameManager.instance.eventInteract.Invoke();
     }
 
 }
