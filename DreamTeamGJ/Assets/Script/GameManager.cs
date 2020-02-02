@@ -25,8 +25,6 @@ public class GameManager : MonoBehaviour
     public TileManager tileMan;
     private List<int> validTile = new List<int>();
 
-    public GameObject FlyPrefab;
-
     public void Start()
     {
         instance = this;
@@ -38,9 +36,11 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
             int temp = Random.Range(0, validTile.Count);
-            Instantiate(FlyPrefab, tileMan.tileArray[validTile[temp]].transform);
+            //Spawn flies at 
+            //tileMan.tileArray[validTile[temp]];
             validTile.Remove(validTile[temp]);
-        }  
+        }
+        
     }
 
     public void CheckValidTile()
