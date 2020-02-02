@@ -149,7 +149,7 @@ public class Avatar : MonoBehaviour
                 break;
 
             case "S":
-                tileToInteract = (playerCurrentPosition + 12 > 72) ? 0 : playerCurrentPosition + 12;
+                tileToInteract = (playerCurrentPosition + 12 > 84) ? 0 : playerCurrentPosition + 12;
                 break;
 
             case "D":
@@ -169,7 +169,6 @@ public class Avatar : MonoBehaviour
         }
 
         //to call the different fonction of interact 
-        if (tileToInteract < 0 || tileToInteract > 84) tileToInteract = 0;
         if (tileToInteract != 0 && TileManager.instance.tileArray[tileToInteract].state == 2 && timePressed == 2)
         {
             Eat();
