@@ -21,7 +21,7 @@ public class Avatar : MonoBehaviour
 
     RaycastHit hit;
     public int playerCurrentPosition;
-    private int tileToInteract;
+    public int tileToInteract;
     private bool eReleased = true;
     private int timePressed;
 
@@ -52,6 +52,7 @@ public class Avatar : MonoBehaviour
     private void Start()
     {
         tr = transform;
+        tileToInteract = 0;
     } 
 
     private void EscapeKey()
@@ -77,17 +78,11 @@ public class Avatar : MonoBehaviour
         controls.AvatarActionMap.Disable();
     }
 
-
-
-
-
     private void Update()
     {
         // raycast for tile bellow character
-        Debug.DrawRay(tr.position, Vector3.down);
         if (Physics.Raycast(tr.position, Vector3.down, out hit, 1f))
         {
-            Debug.Log(hit);
             playerCurrentPosition = hit.collider.GetComponent<Tile>().id;
         }
   
@@ -111,6 +106,8 @@ public class Avatar : MonoBehaviour
             tileToInteract = playerCurrentPosition + 12;
         }
 
+        if (tileToInteract < 0 || tileToInteract > 84)
+            tileToInteract = 0;
         //to see how many time the player release the E buttom
 
         if (eKey == 1.0f)
@@ -125,18 +122,18 @@ public class Avatar : MonoBehaviour
 
         //to call the different fonction of interact 
 
-        if (TileManager.instance.tileArray[tileToInteract].state == 2 && timePressed == 2)
+        if (tileToInteract != 0 && TileManager.instance.tileArray[tileToInteract].state == 2 && timePressed == 2)
         {
             Eat();
             timePressed = 0;
         }
-        if (TileManager.instance.tileArray[tileToInteract].state == 1 && timePressed == 2)
+        if (tileToInteract != 0 && TileManager.instance.tileArray[tileToInteract].state == 1 && timePressed == 2)
         {
             Repair();
             Eat();
             timePressed = 0;
         }
-        if (TileManager.instance.tileArray[tileToInteract].state == 0 && timePressed == 2)
+        if (tileToInteract != 0 && TileManager.instance.tileArray[tileToInteract].state == 0 && timePressed == 2)
         {
             Build();
             timePressed = 0;
