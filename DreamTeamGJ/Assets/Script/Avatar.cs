@@ -17,6 +17,15 @@ public class Avatar : MonoBehaviour
     private float qKey;
     private float eKey;
 
+    //for interaction
+
+    RaycastHit hit;
+    public Vector3 playerLocation;
+    public int playerCurrentPosition;
+    private int tileToInterect;
+    private bool eReleased = true;
+    private int timePressed;
+
     //private float speed = 0.01f;
 
     private void Awake()
@@ -36,11 +45,21 @@ public class Avatar : MonoBehaviour
         controls.AvatarActionMap.QInteract.canceled += (ctx => qKey = 0.0f);
         controls.AvatarActionMap.EInteract.performed += (ctx => eKey = ctx.ReadValue<float>());
         controls.AvatarActionMap.EInteract.canceled += (ctx => eKey = 0.0f);
+
+        controls.AvatarActionMap.EscapeAction.performed += ctx => EscapeKey();
+
     }
 
     private void Start()
     {
         tr = transform;
+
+        playerLocation = this.transform.position;
+    } 
+
+    private void EscapeKey()
+    {
+
     }
 
     private void FixedUpdate()
@@ -59,6 +78,103 @@ public class Avatar : MonoBehaviour
     private void OnDisable()
     {
         controls.AvatarActionMap.Disable();
+    }
+
+
+
+
+
+    private void Update()
+    {
+        // raycast for tile bellow character
+
+        if (Physics.Raycast(playerLocation, Vector3.down, out hit))
+        {
+            if (playerCurrentPosition != hit.collider.GetComponent<Tile>().id)
+            {
+                playerCurrentPosition = hit.collider.GetComponent<Tile>().id;
+            }
+        }
+        
+        //tiles next to the character tile
+        
+        if (aKey == 1.0f)
+        {
+            tileToInterect = playerCurrentPosition - 1;
+        }
+        if (dKey == 1.0f)
+        {
+            tileToInterect = playerCurrentPosition + 1;
+        }
+        if (wKey == 1.0f)
+        {
+            tileToInterect = playerCurrentPosition - 12;
+        }
+        if (sKey == 1.0f)
+        {
+            tileToInterect = playerCurrentPosition + 12;
+        }
+
+        //to see how many time the player release the E buttom
+
+        if (eKey == 1.0f)
+        {
+            eReleased = false;
+        }
+        if (eReleased == false && eKey == 0f)
+        {
+            eReleased = true;
+            timePressed += 1;
+        }
+
+        //to call the different fonction of interact 
+
+        if (TileManager.instance.tileArray[tileToInterect].state == 2 && timePressed == 2)
+        {
+            Eat();
+            timePressed = 0;
+        }
+        if (TileManager.instance.tileArray[tileToInterect].state == 1 && timePressed == 2)
+        {
+            Repair();
+            Eat();
+            timePressed = 0;
+        }
+        if (TileManager.instance.tileArray[tileToInterect].state == 0 && timePressed == 2)
+        {
+            Build();
+            timePressed = 0;
+        }
+    }
+
+
+    //interaction fonction
+
+    public void Build()
+    {
+        TileManager.instance.tileArray[tileToInterect].state = 2;
+        GameManager.instance.webCount -= 2;
+    }
+
+    public void Repair()
+    {
+        TileManager.instance.tileArray[tileToInterect].state = 2;
+        GameManager.instance.webCount -= 1;
+    }
+
+    public void Eat()
+    {
+        if (TileManager.instance.tileArray[tileToInterect].state == 2)
+        {
+            GameManager.instance.webCount += 2;
+        }
+        else
+        {
+            GameManager.instance.webCount += 1;
+
+        }
+        TileManager.instance.tileArray[tileToInterect].state = 0;
+
     }
 
 }

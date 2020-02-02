@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,6 +17,42 @@ public class GameManager : MonoBehaviour
     public float nightTransition = 120f;
 
     public int currentDay = 0;
+
+    public UnityEvent eventInteract;
+    public UnityEvent eventDay;
+    public UnityEvent eventNight;
+
+    public TileManager tileMan;
+    private List<int> validTile = new List<int>();
+
+    public void Start()
+    {
+        instance = this;
+    }
+
+    public void SpawnFlies()
+    {
+        CheckValidTile();
+        for (int i = 0; i < 5; i++)
+        {
+            int temp = Random.Range(0, validTile.Count);
+            //Spawn flies at 
+            //tileMan.tileArray[validTile[temp]];
+            validTile.Remove(validTile[temp]);
+        }
+        
+    }
+
+    public void CheckValidTile()
+    {
+        for (int i = 2; i < tileMan.tileArray.Length; i++)
+        {
+            if (tileMan.tileArray[i].hasFly == false && tileMan.tileArray[i].hasCocoon == false)
+            {
+                validTile.Add(tileMan.tileArray[i].id);
+            }
+        }
+    }
 
     public void PlayerTakesWeb()
     {
@@ -45,7 +82,6 @@ public class GameManager : MonoBehaviour
     public void Update()
     {
         currentTime += Time.deltaTime;
-
 
         if(currentTime >= nightTransition && dayTime == true)
         {
