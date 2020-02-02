@@ -65,6 +65,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""EscapeAction"",
+                    ""type"": ""Button"",
+                    ""id"": ""22d404dc-776b-44dd-b523-56e80d688f82"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -133,6 +141,17 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""action"": ""EInteract"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c698e7a1-1c1e-43bc-8760-e7de39f2bf4f"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EscapeAction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -147,6 +166,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_AvatarActionMap_MoveRightAction = m_AvatarActionMap.FindAction("MoveRightAction", throwIfNotFound: true);
         m_AvatarActionMap_QInteract = m_AvatarActionMap.FindAction("QInteract", throwIfNotFound: true);
         m_AvatarActionMap_EInteract = m_AvatarActionMap.FindAction("EInteract", throwIfNotFound: true);
+        m_AvatarActionMap_EscapeAction = m_AvatarActionMap.FindAction("EscapeAction", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -202,6 +222,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
     private readonly InputAction m_AvatarActionMap_MoveRightAction;
     private readonly InputAction m_AvatarActionMap_QInteract;
     private readonly InputAction m_AvatarActionMap_EInteract;
+    private readonly InputAction m_AvatarActionMap_EscapeAction;
     public struct AvatarActionMapActions
     {
         private @InputMaster m_Wrapper;
@@ -212,6 +233,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         public InputAction @MoveRightAction => m_Wrapper.m_AvatarActionMap_MoveRightAction;
         public InputAction @QInteract => m_Wrapper.m_AvatarActionMap_QInteract;
         public InputAction @EInteract => m_Wrapper.m_AvatarActionMap_EInteract;
+        public InputAction @EscapeAction => m_Wrapper.m_AvatarActionMap_EscapeAction;
         public InputActionMap Get() { return m_Wrapper.m_AvatarActionMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -239,6 +261,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @EInteract.started -= m_Wrapper.m_AvatarActionMapActionsCallbackInterface.OnEInteract;
                 @EInteract.performed -= m_Wrapper.m_AvatarActionMapActionsCallbackInterface.OnEInteract;
                 @EInteract.canceled -= m_Wrapper.m_AvatarActionMapActionsCallbackInterface.OnEInteract;
+                @EscapeAction.started -= m_Wrapper.m_AvatarActionMapActionsCallbackInterface.OnEscapeAction;
+                @EscapeAction.performed -= m_Wrapper.m_AvatarActionMapActionsCallbackInterface.OnEscapeAction;
+                @EscapeAction.canceled -= m_Wrapper.m_AvatarActionMapActionsCallbackInterface.OnEscapeAction;
             }
             m_Wrapper.m_AvatarActionMapActionsCallbackInterface = instance;
             if (instance != null)
@@ -261,6 +286,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @EInteract.started += instance.OnEInteract;
                 @EInteract.performed += instance.OnEInteract;
                 @EInteract.canceled += instance.OnEInteract;
+                @EscapeAction.started += instance.OnEscapeAction;
+                @EscapeAction.performed += instance.OnEscapeAction;
+                @EscapeAction.canceled += instance.OnEscapeAction;
             }
         }
     }
@@ -273,5 +301,6 @@ public class @InputMaster : IInputActionCollection, IDisposable
         void OnMoveRightAction(InputAction.CallbackContext context);
         void OnQInteract(InputAction.CallbackContext context);
         void OnEInteract(InputAction.CallbackContext context);
+        void OnEscapeAction(InputAction.CallbackContext context);
     }
 }

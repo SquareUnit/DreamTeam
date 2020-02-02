@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TileManager : MonoBehaviour
 {
+    public static TileManager instance;
     public Tile tile;
     public int width = 5;
     public int length = 5;
@@ -14,6 +15,8 @@ public class TileManager : MonoBehaviour
 
     void Start()
     {
+        instance = this;
+
         tileIndex = new GameObject[width, length];
         GenerateTiles(tileIndex);
 
