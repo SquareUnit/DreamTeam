@@ -10,6 +10,12 @@ public class Avatar : MonoBehaviour
     public Animator animator;
     public GameObject ropePrefab;
 
+    public AudioClip audioWalk;
+    public AudioClip audioBuild;
+    public AudioClip audioDestroy;
+    public AudioSource audioSource;
+    public AudioSource audioSourceWalk;
+
     private GameObject[] test;
 
     private float[] wasd = new float[4];
@@ -62,6 +68,7 @@ public class Avatar : MonoBehaviour
         tr = transform;
         tileToInteract = 0;
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     } 
 
     private void EscapeKey()
@@ -111,21 +118,25 @@ public class Avatar : MonoBehaviour
         {
             tr.position = tr.position + new Vector3(0, 0, 0.1f);
             animator.SetBool("isMoving", true);
+            audioSourceWalk.Play();
         }
         if (wasd[1] == 1.0f)
         {
             tr.position = tr.position + new Vector3(-0.1f, 0, 0);
             animator.SetBool("isMoving", true);
+            audioSourceWalk.Play();
         }
         if (wasd[2] == 1.0f)
         {
             tr.position = tr.position + new Vector3(0, 0, -0.1f);
             animator.SetBool("isMoving", true);
+            audioSourceWalk.Play();
         }
         if (wasd[3] == 1.0f)
         {
             tr.position = tr.position + new Vector3(0.1f, 0, 0);
             animator.SetBool("isMoving", true);
+            audioSourceWalk.Play();
         }
     }
 
@@ -196,6 +207,8 @@ public class Avatar : MonoBehaviour
             GameManager.instance.webCount -= 2;
             TileManager.instance.tileArray[tileToInteract].state = 2;
             GameManager.instance.eventInteract.Invoke(); // update le visuel
+            audioSource.clip = audioBuild;
+            audioSource.Play();
         }
     }
 
@@ -206,6 +219,8 @@ public class Avatar : MonoBehaviour
             GameManager.instance.webCount -= 1;
             TileManager.instance.tileArray[tileToInteract].state = 2;
             GameManager.instance.eventInteract.Invoke();
+            audioSource.clip = audioBuild;
+            audioSource.Play();
         }
     }
 
@@ -223,6 +238,8 @@ public class Avatar : MonoBehaviour
         TileManager.instance.tileArray[tileToInteract].state = 0;
 
         GameManager.instance.eventInteract.Invoke();
+        audioSource.clip = audioDestroy;
+        audioSource.Play();
     }
 
     private void OnEnable()
