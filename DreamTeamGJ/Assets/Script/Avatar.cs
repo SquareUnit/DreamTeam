@@ -7,6 +7,7 @@ public class Avatar : MonoBehaviour
 {
     public InputMaster controls;
     private Transform tr;
+    public Animator animator;
     public GameObject ropePrefab;
 
     private GameObject[] test;
@@ -24,7 +25,7 @@ public class Avatar : MonoBehaviour
 
     RaycastHit hit;
     public int playerCurrentPosition;
-    private int tileToInteract;
+    public int tileToInteract;
     private bool eReleased = true;
     private int timePressed;
 
@@ -60,7 +61,9 @@ public class Avatar : MonoBehaviour
     private void Start()
     {
         tr = transform;
-    }
+        tileToInteract = 0;
+        animator = GetComponent<Animator>();
+    } 
 
     private void SpawnRope()
     {
@@ -75,10 +78,27 @@ public class Avatar : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (wKey == 1.0f) tr.position = tr.position + new Vector3(0, 0, 0.1f);
-        if (aKey == 1.0f) tr.position = tr.position + new Vector3(-0.1f, 0, 0);
-        if (sKey == 1.0f) tr.position = tr.position + new Vector3(0, 0, -0.1f);
-        if (dKey == 1.0f) tr.position = tr.position + new Vector3(0.1f, 0, 0);
+        animator.SetBool("isMoving", false);
+        if (wKey == 1.0f)
+        {
+            tr.position = tr.position + new Vector3(0, 0, 0.1f);
+            animator.SetBool("isMoving", true);
+        }
+        if (aKey == 1.0f)
+        {
+            tr.position = tr.position + new Vector3(-0.1f, 0, 0);
+            animator.SetBool("isMoving", true);
+        }
+        if (sKey == 1.0f)
+        {
+            tr.position = tr.position + new Vector3(0, 0, -0.1f);
+            animator.SetBool("isMoving", true);
+        }
+        if (dKey == 1.0f)
+        {
+            tr.position = tr.position + new Vector3(0.1f, 0, 0);
+            animator.SetBool("isMoving", true);
+        }
     }
 
     private void OnEnable()
@@ -94,10 +114,8 @@ public class Avatar : MonoBehaviour
     private void Update()
     {
         // raycast for tile bellow character
-        Debug.DrawRay(tr.position, Vector3.down);
         if (Physics.Raycast(tr.position, Vector3.down, out hit, 1f))
         {
-            Debug.Log(hit);
             playerCurrentPosition = hit.collider.GetComponent<Tile>().id;
         }
   
@@ -119,6 +137,8 @@ public class Avatar : MonoBehaviour
             tileToInteract = playerCurrentPosition + 12;
         }
 
+        if (tileToInteract < 0 || tileToInteract > 84)
+            tileToInteract = 0;
         //to see how many time the player release the E buttom
         if (eKey == 1.0f)
         {
@@ -131,18 +151,19 @@ public class Avatar : MonoBehaviour
         }
 
         //to call the different fonction of interact 
-        if (TileManager.instance.tileArray[tileToInteract].state == 2 && timePressed == 2)
+
+        if (tileToInteract != 0 && TileManager.instance.tileArray[tileToInteract].state == 2 && timePressed == 2)
         {
             Eat();
             timePressed = 0;
         }
-        if (TileManager.instance.tileArray[tileToInteract].state == 1 && timePressed == 2)
+        if (tileToInteract != 0 && TileManager.instance.tileArray[tileToInteract].state == 1 && timePressed == 2)
         {
             Repair();
             Eat();
             timePressed = 0;
         }
-        if (TileManager.instance.tileArray[tileToInteract].state == 0 && timePressed == 2)
+        if (tileToInteract != 0 && TileManager.instance.tileArray[tileToInteract].state == 0 && timePressed == 2)
         {
             Build();
             timePressed = 0;
@@ -154,12 +175,14 @@ public class Avatar : MonoBehaviour
     {
         TileManager.instance.tileArray[tileToInteract].state = 2;
         GameManager.instance.webCount -= 2;
+        GameManager.instance.eventInteract.Invoke();
     }
 
     public void Repair()
     {
         TileManager.instance.tileArray[tileToInteract].state = 2;
         GameManager.instance.webCount -= 1;
+        GameManager.instance.eventInteract.Invoke();
     }
 
     public void Eat()
@@ -174,5 +197,7 @@ public class Avatar : MonoBehaviour
 
         }
         TileManager.instance.tileArray[tileToInteract].state = 0;
+
+        GameManager.instance.eventInteract.Invoke();
     }
 }
