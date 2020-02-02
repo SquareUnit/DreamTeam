@@ -73,6 +73,30 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""GrowRopeAction"",
+                    ""type"": ""Button"",
+                    ""id"": ""eb74c68f-5d7c-44ad-a31e-0419111ac931"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""ShrinkRopeAction"",
+                    ""type"": ""Button"",
+                    ""id"": ""3aee24e1-2bd3-4caf-84f9-2dcaed72f65a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""PlaceRopeAction"",
+                    ""type"": ""Button"",
+                    ""id"": ""df6ced87-53a5-4cf6-aca0-42d7dd5f52ff"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -152,6 +176,39 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""action"": ""EscapeAction"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c828baff-5274-4506-b4ca-ec66070e4337"",
+                    ""path"": ""<Keyboard>/numpadPlus"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GrowRopeAction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""17270cb5-9ec3-4caa-93bd-4ae1dbd4ff96"",
+                    ""path"": ""<Keyboard>/minus"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShrinkRopeAction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0c6b4472-d9c6-4a3a-9e07-dbbde4061d50"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PlaceRopeAction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -167,6 +224,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_AvatarActionMap_QInteract = m_AvatarActionMap.FindAction("QInteract", throwIfNotFound: true);
         m_AvatarActionMap_EInteract = m_AvatarActionMap.FindAction("EInteract", throwIfNotFound: true);
         m_AvatarActionMap_EscapeAction = m_AvatarActionMap.FindAction("EscapeAction", throwIfNotFound: true);
+        m_AvatarActionMap_GrowRopeAction = m_AvatarActionMap.FindAction("GrowRopeAction", throwIfNotFound: true);
+        m_AvatarActionMap_ShrinkRopeAction = m_AvatarActionMap.FindAction("ShrinkRopeAction", throwIfNotFound: true);
+        m_AvatarActionMap_PlaceRopeAction = m_AvatarActionMap.FindAction("PlaceRopeAction", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -223,6 +283,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
     private readonly InputAction m_AvatarActionMap_QInteract;
     private readonly InputAction m_AvatarActionMap_EInteract;
     private readonly InputAction m_AvatarActionMap_EscapeAction;
+    private readonly InputAction m_AvatarActionMap_GrowRopeAction;
+    private readonly InputAction m_AvatarActionMap_ShrinkRopeAction;
+    private readonly InputAction m_AvatarActionMap_PlaceRopeAction;
     public struct AvatarActionMapActions
     {
         private @InputMaster m_Wrapper;
@@ -234,6 +297,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
         public InputAction @QInteract => m_Wrapper.m_AvatarActionMap_QInteract;
         public InputAction @EInteract => m_Wrapper.m_AvatarActionMap_EInteract;
         public InputAction @EscapeAction => m_Wrapper.m_AvatarActionMap_EscapeAction;
+        public InputAction @GrowRopeAction => m_Wrapper.m_AvatarActionMap_GrowRopeAction;
+        public InputAction @ShrinkRopeAction => m_Wrapper.m_AvatarActionMap_ShrinkRopeAction;
+        public InputAction @PlaceRopeAction => m_Wrapper.m_AvatarActionMap_PlaceRopeAction;
         public InputActionMap Get() { return m_Wrapper.m_AvatarActionMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -264,6 +330,15 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @EscapeAction.started -= m_Wrapper.m_AvatarActionMapActionsCallbackInterface.OnEscapeAction;
                 @EscapeAction.performed -= m_Wrapper.m_AvatarActionMapActionsCallbackInterface.OnEscapeAction;
                 @EscapeAction.canceled -= m_Wrapper.m_AvatarActionMapActionsCallbackInterface.OnEscapeAction;
+                @GrowRopeAction.started -= m_Wrapper.m_AvatarActionMapActionsCallbackInterface.OnGrowRopeAction;
+                @GrowRopeAction.performed -= m_Wrapper.m_AvatarActionMapActionsCallbackInterface.OnGrowRopeAction;
+                @GrowRopeAction.canceled -= m_Wrapper.m_AvatarActionMapActionsCallbackInterface.OnGrowRopeAction;
+                @ShrinkRopeAction.started -= m_Wrapper.m_AvatarActionMapActionsCallbackInterface.OnShrinkRopeAction;
+                @ShrinkRopeAction.performed -= m_Wrapper.m_AvatarActionMapActionsCallbackInterface.OnShrinkRopeAction;
+                @ShrinkRopeAction.canceled -= m_Wrapper.m_AvatarActionMapActionsCallbackInterface.OnShrinkRopeAction;
+                @PlaceRopeAction.started -= m_Wrapper.m_AvatarActionMapActionsCallbackInterface.OnPlaceRopeAction;
+                @PlaceRopeAction.performed -= m_Wrapper.m_AvatarActionMapActionsCallbackInterface.OnPlaceRopeAction;
+                @PlaceRopeAction.canceled -= m_Wrapper.m_AvatarActionMapActionsCallbackInterface.OnPlaceRopeAction;
             }
             m_Wrapper.m_AvatarActionMapActionsCallbackInterface = instance;
             if (instance != null)
@@ -289,6 +364,15 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @EscapeAction.started += instance.OnEscapeAction;
                 @EscapeAction.performed += instance.OnEscapeAction;
                 @EscapeAction.canceled += instance.OnEscapeAction;
+                @GrowRopeAction.started += instance.OnGrowRopeAction;
+                @GrowRopeAction.performed += instance.OnGrowRopeAction;
+                @GrowRopeAction.canceled += instance.OnGrowRopeAction;
+                @ShrinkRopeAction.started += instance.OnShrinkRopeAction;
+                @ShrinkRopeAction.performed += instance.OnShrinkRopeAction;
+                @ShrinkRopeAction.canceled += instance.OnShrinkRopeAction;
+                @PlaceRopeAction.started += instance.OnPlaceRopeAction;
+                @PlaceRopeAction.performed += instance.OnPlaceRopeAction;
+                @PlaceRopeAction.canceled += instance.OnPlaceRopeAction;
             }
         }
     }
@@ -302,5 +386,8 @@ public class @InputMaster : IInputActionCollection, IDisposable
         void OnQInteract(InputAction.CallbackContext context);
         void OnEInteract(InputAction.CallbackContext context);
         void OnEscapeAction(InputAction.CallbackContext context);
+        void OnGrowRopeAction(InputAction.CallbackContext context);
+        void OnShrinkRopeAction(InputAction.CallbackContext context);
+        void OnPlaceRopeAction(InputAction.CallbackContext context);
     }
 }

@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class Rope : MonoBehaviour
 {
-
-    public Rigidbody2D hook;
+    public Rigidbody hook;
     public GameObject linkPrefab;
     public int linkQty = 7;
-    public GameObject[] links;
-    public float ropeLength;
+    public List<GameObject> links = new List<GameObject>();
+    private float ropeLength;
 
     void Start()
     {
@@ -18,34 +17,28 @@ public class Rope : MonoBehaviour
 
     void GenerateRope()
     {
-        Rigidbody2D previousRB = hook;
+        Rigidbody previousRB = hook;
         for(int i = 0; i < linkQty; i++)
         {
-            if(i == linkQty - 1)
-            {
-                // Spider ribigbody2D = previousRB
-            }
-            else
-            {
-                // Instatiate
-                GameObject link = Instantiate(linkPrefab, transform);
-                // Add to array
-                links[i] = link;
-                // Get comp and connect to previous
-                HingeJoint2D joint = link.GetComponent<HingeJoint2D>();
-                joint.connectedBody = previousRB;
-                // Swap previous for next intantiated link
-                previousRB = link.GetComponent<Rigidbody2D>();
-            }
+            // Instantiate
+            GameObject link = Instantiate(linkPrefab, transform);
+            link.name = "Link" + i.ToString();
+            // Add to array
+            links.Add(link);
+            // Get comp and connect to previous
+            HingeJoint joint = link.GetComponent<HingeJoint>();
+            joint.connectedBody = previousRB;
+            // Swap previous for next intantiated link
+            previousRB = link.GetComponent<Rigidbody>();
         }
     }
 
-    void ResizeRope(float increment)
+    void ResizeRope(float increment) // UNTESTED
     {
         ropeLength = Mathf.Clamp(ropeLength + increment, 0, 1);
         foreach(GameObject i in links)
         {
-            i.GetComponent<HingeJoint2D>().connectedAnchor = new Vector2(0, ropeLength);
+            i.GetComponent<HingeJoint>().connectedAnchor = new Vector2(0, ropeLength);
         }
     }
 

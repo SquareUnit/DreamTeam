@@ -7,6 +7,7 @@ public class Avatar : MonoBehaviour
 {
     public InputMaster controls;
     private Transform tr;
+    public GameObject ropePrefab;
 
     private GameObject[] test;
 
@@ -16,6 +17,8 @@ public class Avatar : MonoBehaviour
     private float dKey;
     private float qKey;
     private float eKey;
+    private float plusKey;
+    private float minusKey;
 
     //for interaction
 
@@ -45,14 +48,25 @@ public class Avatar : MonoBehaviour
         controls.AvatarActionMap.EInteract.performed += (ctx => eKey = ctx.ReadValue<float>());
         controls.AvatarActionMap.EInteract.canceled += (ctx => eKey = 0.0f);
 
-        controls.AvatarActionMap.EscapeAction.performed += ctx => EscapeKey();
+        controls.AvatarActionMap.PlaceRopeAction.performed += (ctx => SpawnRope());
+        //controls.AvatarActionMap.GrowRopeAction.performed += (ctx => ctx.ReadValue<float>());
+        //controls.AvatarActionMap.GrowRopeAction.canceled += (ctx => eKey = 0.0f);
+        //controls.AvatarActionMap.ShrinkRopeAction.performed += (ctx => ctx.ReadValue<float>());
+        //controls.AvatarActionMap.ShrinkRopeAction.canceled += (ctx => eKey = 0.0f);
 
+        controls.AvatarActionMap.EscapeAction.performed += ctx => EscapeKey();
     }
 
     private void Start()
     {
         tr = transform;
-    } 
+    }
+
+    private void SpawnRope()
+    {
+        Debug.Log("Rope spawned");
+        GameObject rope = Instantiate(ropePrefab, tr.position, Quaternion.identity);
+    }
 
     private void EscapeKey()
     {
@@ -77,10 +91,6 @@ public class Avatar : MonoBehaviour
         controls.AvatarActionMap.Disable();
     }
 
-
-
-
-
     private void Update()
     {
         // raycast for tile bellow character
@@ -91,9 +101,7 @@ public class Avatar : MonoBehaviour
             playerCurrentPosition = hit.collider.GetComponent<Tile>().id;
         }
   
-        
         //tiles next to the character tile
-        
         if (aKey == 1.0f)
         {
             tileToInteract = playerCurrentPosition - 1;
@@ -112,7 +120,6 @@ public class Avatar : MonoBehaviour
         }
 
         //to see how many time the player release the E buttom
-
         if (eKey == 1.0f)
         {
             eReleased = false;
@@ -124,7 +131,6 @@ public class Avatar : MonoBehaviour
         }
 
         //to call the different fonction of interact 
-
         if (TileManager.instance.tileArray[tileToInteract].state == 2 && timePressed == 2)
         {
             Eat();
@@ -143,9 +149,7 @@ public class Avatar : MonoBehaviour
         }
     }
 
-
     //interaction fonction
-
     public void Build()
     {
         TileManager.instance.tileArray[tileToInteract].state = 2;
@@ -170,7 +174,5 @@ public class Avatar : MonoBehaviour
 
         }
         TileManager.instance.tileArray[tileToInteract].state = 0;
-
     }
-
 }

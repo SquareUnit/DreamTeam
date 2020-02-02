@@ -60,6 +60,30 @@
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "GrowRopeAction",
+                    "type": "Button",
+                    "id": "eb74c68f-5d7c-44ad-a31e-0419111ac931",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "ShrinkRopeAction",
+                    "type": "Button",
+                    "id": "3aee24e1-2bd3-4caf-84f9-2dcaed72f65a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "PlaceRopeAction",
+                    "type": "Button",
+                    "id": "df6ced87-53a5-4cf6-aca0-42d7dd5f52ff",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -137,6 +161,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "EscapeAction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c828baff-5274-4506-b4ca-ec66070e4337",
+                    "path": "<Keyboard>/numpadPlus",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GrowRopeAction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "17270cb5-9ec3-4caa-93bd-4ae1dbd4ff96",
+                    "path": "<Keyboard>/minus",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ShrinkRopeAction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0c6b4472-d9c6-4a3a-9e07-dbbde4061d50",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PlaceRopeAction",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
