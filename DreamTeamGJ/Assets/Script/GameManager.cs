@@ -18,16 +18,12 @@ public class GameManager : MonoBehaviour
 
     public int currentDay = 0;
 
-    public int tilesToDamage;
-
     public UnityEvent eventInteract;
     public UnityEvent eventDay;
     public UnityEvent eventNight;
 
     public TileManager tileMan;
     private List<int> validTile = new List<int>();
-
-    public Tile[] smallestTile;
 
     public void Start()
     {
@@ -99,26 +95,8 @@ public class GameManager : MonoBehaviour
         if (currentTime >= dayTransition && dayTime == false)
         {
             //transition to day here
-
-            tilesToDamage = Random.Range(3, 5);
-            for (int i = 0; i < tilesToDamage; i++)
-            {
-                for (int j = 0; j < 84; j++)
-                {
-
-
-
-                }
-
-                //smallestTile[]
-
-
-            }
-
             dayTime = true;
             currentTime = 0f;
         }
-
-        
     }
 }
